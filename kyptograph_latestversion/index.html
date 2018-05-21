@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+	<script src="https://code.createjs.com/createjs-2015.11.26.min.js">
+	</script>
+	<script src="Krypto_graph_3_up.js">
+	</script>
+	<meta charset="UTF-8">
+
+	<title>My New Pen!</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet prefetch">
+	<link href="styles/index.css" rel="stylesheet">
+	<script>
+	 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+	 function init() {
+	   canvas = document.getElementById("canvas");
+	   anim_container = document.getElementById("animation_container");
+	   dom_overlay_container = document.getElementById("dom_overlay_container");
+	   var comp = AdobeAn.getComposition("6FC458F8A707C54D99ADC36ED3F08904");
+	   var lib = comp.getLibrary();
+	   handleComplete({}, comp);
+	 }
+
+	 function handleComplete(evt, comp) {
+	   //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	   var lib = comp.getLibrary();
+	   var ss = comp.getSpriteSheet();
+	   exportRoot = new lib.Krypto_graph_3_up();
+	   stage = new lib.Stage(canvas);
+	   //Registers the "tick" event listener.
+	   fnStartAnimation = function() {
+	     stage.addChild(exportRoot);
+	     createjs.Ticker.setFPS(lib.properties.fps);
+	     createjs.Ticker.addEventListener("tick", stage);
+	   }
+	   //Code to support hidpi screens and responsive scaling.
+	   function makeResponsive(isResp, respDim, isScale, scaleType) {
+	     var lastW, lastH, lastS = 1;
+	     window.addEventListener('resize', resizeCanvas);
+	     resizeCanvas();
+
+	     function resizeCanvas() {
+	       var w = lib.properties.width,
+	         h = lib.properties.height;
+	       var iw = window.innerWidth,
+	         ih = window.innerHeight;
+	       var pRatio = window.devicePixelRatio || 1,
+	         xRatio = iw / w,
+	         yRatio = ih / h,
+	         sRatio = 1;
+	       if (isResp) {
+	         if ((respDim == 'width' && lastW == iw) || (respDim == 'height' && lastH == ih)) {
+	           sRatio = lastS;
+	         } else if (!isScale) {
+	           if (iw < w || ih < h)
+	             sRatio = Math.min(xRatio, yRatio);
+	         } else if (scaleType == 1) {
+	           sRatio = Math.min(xRatio, yRatio);
+	         } else if (scaleType == 2) {
+	           sRatio = Math.max(xRatio, yRatio);
+	         }
+	       }
+	       canvas.width = w * pRatio * sRatio;
+	       canvas.height = h * pRatio * sRatio;
+	       canvas.style.width = dom_overlay_container.style.width = anim_container.style.width = w * sRatio + 'px';
+	       canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h * sRatio + 'px';
+	       stage.scaleX = pRatio * sRatio;
+	       stage.scaleY = pRatio * sRatio;
+	       lastW = iw;
+	       lastH = ih;
+	       lastS = sRatio;
+	       stage.tickOnUpdate = false;
+	       stage.update();
+	       stage.tickOnUpdate = true;
+	     }
+	   }
+	   makeResponsive(true, 'both', true, 1);
+	   AdobeAn.compositionLoaded(lib.properties.id);
+	   fnStartAnimation();
+	 }
+	</script>
+</head>
+
+<body onload="init();" style="margin:0px;">
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:100,200,300,400" rel="stylesheet">
+
+	<nav class="navbar navbar-expand-md navbar-dark">
+		<a class="navbar-brand" href="#"><svg class="logoTop" data-name="Layer 1" id="Layer_1" viewbox="0 0 52 117.5" xmlns="http://www.w3.org/2000/svg">
+
+
+		<title>krytographLogo</title>
+		<rect class="cls-1" height="85.5" rx="6" ry="6" width="12" y="32"></rect>
+		<rect class="cls-2" height="53" rx="6" ry="6" width="12" x="20" y="32.25"></rect>
+		<rect class="cls-3" height="85.5" rx="6" ry="6" width="12" x="40"></rect></svg>Kryptograph</a> <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler ml-auto custom-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon custom-toggler"></span></button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="navbar-nav mr-auto">
+				<a class="nav-link nav-item signUp" href="#" onmouseout="this.style.color='#00F377'" onmouseover="this.style.color='red'" style="color:#00F377;">sign up</a> <a class="nav-link nav-item login" href="#">login</a>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="gradientback">
+		<div class="gradientbackUnder">
+		</div>
+
+
+		<div class="hideStuff">
+			<div class="animationClass" id="animation_container" style="background-color: rgba(0, 0, 0, 0);width: 1800px;z-index: 1;height: 900px;">
+				<canvas height="400" id="canvas" style="position: absolute; display: block; background-color:rgba(0, 0, 0, 0.00);" width="1200">
+				</canvas>
+
+
+				<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1200px; height:400px; position: absolute; left: 0px; top: 0px; display: block;">
+				</div>
+			</div>
+		</div>
+		<!--
+
+    <div class="svgBox">
+
+      <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" class="path" viewBox="0 0 189.06 259.92"><defs><style>.cls-1{fill:none;stroke:#20D7DB;stroke-miterlimit:10;}</style></defs><title>Untitled-1</title><path class="cls-1" d="M114,268c11.47,13.91,9,29-10,35s-37-6-29-71,21.5-96.5,21.5-96.5l-9,8v-11s-7,18-10,21-4-8-4-8-4,27-12,30l-5-8s-7,17-3,27-16-14-3-36l-8,4s-3-14,10-22l-9,2s6-22,27-22l-9-3s9-7,27-5l-17-10,10-5a92.12,92.12,0,0,1-26,0l6-10a97,97,0,0,1-28,10v-6s-17,7-18,12c0,0-3-17,16-23l-9-3s14-12,27-9l-5-7s26-5,29,12l1-10s19,7,28,36c0,0-2-20,2-28l4,4s6-27,18-26v8s7-13,15-12,11,2,11,2l-7,4s20-1,27,7c0,0-8,4-21,3l9,6s-4,5-23,0l4,5s-10,8-22,9l6,1-11,16s23-26,38-21l-8,6s25-10,34-3l-7,6s13-1,19,5,8,15,8,15l-8-4s10,8,12,18,0,21,0,21-1-9-7-12-7-4-10-10l1,9s-10-7-13-9a18.37,18.37,0,0,1-8-12l2,14s-13-6-22-18l1,8s-17-9-27,0c0,0,8,0,21,6l-9,3a23.28,23.28,0,0,1,19,9c8,10,5,12,5,12l-9-4s15,11,10,26l-6-4s8,23-8,38l-3-24-5,9s-11-23-5-33l-5,10s-12-16-9-25l-4,11a19.89,19.89,0,0,1-4-14S90.5,239.5,114,268Z" transform="translate(-14.83 -44.95)"/></svg>
+    </div>
+    
+    -->
+
+
+		<div class="textHigh">
+			<h1>Cryptocurrency<br>
+			trading made simple.</h1>
+		</div>
+	</div>
+
+
+	<main>
+		<div class="borderbox">
+		</div>
+
+
+		<div class="textbox">
+			<div class="adCopyFun">
+				<h2>Investing on the fly, anonymously</h2>
+			</div>
+
+
+			<p class="ad123">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+
+
+			<div class="download">
+				<h2>download now</h2>
+			</div>
+
+
+			<div class="buttonAlign">
+				<a href="#">
+				<div class="appleButton">
+				</div></a> <a href="#">
+				<div class="googleButton">
+				</div></a> <span class="stretch"></span>
+			</div>
+		</div>
+
+
+		<div class="gradientback2">
+			<div class="textHigh2">
+				<div class="shadowtext">
+					KRYPTOGRAPH
+				</div>
+			</div>
+		</div>
+
+    
+       <div class="flex-container"> 
+
+      <div class="flexContainerInside">
+<img  class="icons" src="http://res.cloudinary.com/dqle7rqpy/image/upload/v1526658461/binary_hgzmzb.png">
+        <div class="smallTextBox " >
+    <h4 class="textFun">Fully Encrypted Anonymity</h4>
+      </div>
+      </div>
+  
+    
+    
+    
+ 
+  <div class="flexContainerInside">
+<img  class="icons" src="http://res.cloudinary.com/dqle7rqpy/image/upload/v1526659016/headicon_zno49q.png">
+    <div class="smallTextBox">
+    <h4 class="textFun">2 Million+ Users</h4>
+      </div>
+      </div>
+  
+  
+  
+
+  
+  <div class="flexContainerInside">
+<img style="padding-bottom: 35px;" class="icons" src="http://res.cloudinary.com/dqle7rqpy/image/upload/v1526649901/graph_ebmgbn.png">
+        <div class="smallTextBox">
+    <h4 class="textFun">2 million+ users</h4>
+      </div>
+    
+    
+      </div>
+</div>
+
+
+  
+
+		<div class="borderbox2">
+			<div class="textbox2">
+				<div class="flesh animation-test">
+				<div class="shadowBox">
+				</div>
+				<img class="" src="" style="width:350px;">
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+		<div class="gradientback3">
+			<div class="bdgShadow"><img class="object-fit_contain" src="http://res.cloudinary.com/dqle7rqpy/image/upload/v1524844769/kryptoShadow_r1zuuy.png">
+			</div>
+
+
+			<form>
+				<h2 style="padding-bottom: 30px;">Calculate your current earnings</h2>
+
+
+				<div class="group">
+					<input type="text"><span class="highlight"></span><span class="bar"></span> <label>ENTER YOUR HASH RATE</label>
+				</div>
+
+
+				<div class="group">
+					<input type="email"><span class="highlight"></span><span class="bar"></span> <label>TH/S</label>
+				</div>
+				<button class="button buttonBlue" type="button">CALCULATE
+
+				<div class="ripples buttonRipples">
+					<span class="ripplesCircle"></span>
+				</div></button>
+			</form>
+		</div>
+
+
+		<div class="gradientback4">
+			<footer class="footer-bs">
+				<div class="pull-right">
+					<div class="row">
+						<div class="col text-right footer-brand animated fadeInLeft">
+							<h3 style="color: var(--Turquiose);"><svg class="logoTop" data-name="Layer 1" id="Layer_1" viewbox="0 0 52 117.5" xmlns="http://www.w3.org/2000/svg">
+						
+
+							<title>krytographLogo</title>
+							<rect class="cls-1" height="85.5" rx="6" ry="6" width="12" y="32"></rect>
+							<rect class="cls-2" height="53" rx="6" ry="6" width="12" x="20" y="32.25"></rect>
+							<rect class="cls-3" height="85.5" rx="6" ry="6" width="12" x="40"></rect></svg>KRYPTOGRAPH</h3>
+						</div>
+
+
+						<div class="col-lg-3 col-md-4 col-sm-4  footer-social animated fadeInDown">
+							<a class=" signUp" href="#" onmouseout="this.style.color='#00F377'" onmouseover="this.style.color='red'" style="color:#00F377;">SIGN UP</a> <a class="login" href="#" style="">LOGIN</a>
+
+							<div class="copywrite">
+								copywrite 2018
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js">
+	</script> 
+	<script src="scripts/index.js">
+	</script>
+</body>
+</html>
